@@ -84,5 +84,4 @@ int main() {
     for (int i=0; i<n; i++) {
         cout <<setw(12)<<left<< grupe[i].vardas <<setw(12)<<left<< grupe[i].pavarde <<left<<setprecision(4)<<grupe[i].galutinis_paz<<"\n"<<endl;
     };
- 
 };
