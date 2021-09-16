@@ -6,7 +6,7 @@ using namespace std;
 
 int n=0 ;
 string m="" ;
-const int arrs = 3; /// nd_paz array size
+const int arrs = 4; /// nd_paz array size
 
 struct Student
 {
@@ -17,6 +17,7 @@ struct Student
 
     int egz_paz;
     float galutinis_paz;
+    float mediana;
 };
 
 /// cin = int only;
@@ -57,10 +58,19 @@ string ynHandle() {
     return m;
 };
 
+float findMedian(int arr[]) {
+    int q = 0;
+    sort(arr, arr+arrs);
+    if (arrs % 2 == 0) {
+        return float(((arr[arrs/2-1]) + (arr[arrs/2]))/2.0);
+    } 
+    q = arrs/2+0.5;
+    return float(arr[q]);
+};
+
 int main() {
     
     float galutinis =0.0;
-    string m = "";
 
     cout <<"studentu skaicius"<<endl;
 
@@ -70,8 +80,6 @@ int main() {
     
     for (int i=0; i < n; i++) {
         galutinis = 0.0;
-        cout<<"ivesti random pazymius "<<i+1<<"-ajam studentui? (y/n)"<<endl;
-        m = ynHandle();
 
         cout<<i+1<<"-ojo studento vardas"<<endl;
         grupe[i].vardas = stringHandle();
@@ -79,7 +87,10 @@ int main() {
 
         cout<<i+1<<"-ojo studento pavarde"<<endl;
         grupe[i].pavarde = stringHandle();
-    
+            
+        cout<<"ivesti random pazymius "<<i+1<<"-ajam studentui? (y/n)"<<endl;
+        m = ynHandle();
+        
         if (m == "n" || m == "N") {
             cout<<i+1<<"-ojo studento egzamino paz"<<endl;
             grupe[i].egz_paz = intHandle();
@@ -90,26 +101,41 @@ int main() {
             };
             for (auto x : grupe[i].nd_paz) {
                 galutinis += x;
+                cout << x << endl;
             };
-            grupe[i].galutinis_paz= ((galutinis) / arrs )*0.4+grupe[i].egz_paz*0.6;              
+            grupe[i].galutinis_paz= ((galutinis) / arrs )*0.4+grupe[i].egz_paz*0.6;   
+            grupe[i].mediana = findMedian(grupe[i].nd_paz);       
+                
         } else {
         
             grupe[i].egz_paz = rand() % 10 + 1;
-            cout << grupe[i].egz_paz << endl;
         
             for (int j=0; j<arrs; j++) {
                 grupe[i].nd_paz[j] = rand() % 10 + 1;
-                cout << grupe[i].nd_paz[j] << endl;
             };
             for (auto x : grupe[i].nd_paz) {
                 galutinis += x;
+                cout << x <<endl;
             };
         
-            grupe[i].galutinis_paz= ((galutinis) / arrs )*0.4+grupe[i].egz_paz*0.6;      
+            grupe[i].galutinis_paz= ((galutinis) / arrs )*0.4+grupe[i].egz_paz*0.6;  
+            grupe[i].mediana = findMedian(grupe[i].nd_paz);    
         };
     };
-    cout <<setw(12)<<left<< "Vardas" <<setw(12)<<left<< "Pavarde" <<left<< "Galutinis (vid.)\n"<<endl;
-    for (int i=0; i<n; i++) {
-        cout <<setw(12)<<left<< grupe[i].vardas <<setw(12)<<left<< grupe[i].pavarde <<left<<setprecision(3)<<grupe[i].galutinis_paz<<"\n"<<endl;
+    
+    cout<<"isvesti galutini pazymi (y) ar mediana (n) ? " << endl;
+    m = ynHandle();
+
+    if (m == "y" || m == "y") {
+        cout <<setw(12)<<left<< "Vardas" <<setw(12)<<left<< "Pavarde" <<setw(20)<<left<<"Galutinis (vid.)"<<endl;
+        for (int i=0; i<n; i++) {
+            cout <<setw(12)<<left<< grupe[i].vardas <<setw(12)<<left<< grupe[i].pavarde <<setw(20)<<left<<setprecision(3)<<grupe[i].galutinis_paz<<"\n"<<endl;
+        };
+    } 
+    else {
+        cout <<setw(12)<<left<< "Vardas" <<setw(12)<<left<< "Pavarde" <<setw(20)<<left<<"Galutinis (med.)"<<endl;
+        for (int i=0; i<n; i++) {
+            cout <<setw(12)<<left<< grupe[i].vardas <<setw(12)<<left<< grupe[i].pavarde <<setw(20)<<left<<setprecision(3)<<grupe[i].mediana<<"\n"<<endl;
+        } 
     };
 };
