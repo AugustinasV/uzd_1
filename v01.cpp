@@ -7,7 +7,7 @@ using namespace std;
 int n=0 ;
 string m="" ;
 const int arrs = 4; /// nd_paz array size
-int arrinp=100;
+
 
 struct Student
 {
@@ -18,12 +18,13 @@ int egz_paz;
 float galutinis_paz;
 float mediana;
 float galutinis;
-
+int arrinp;
 int cap;
 int *arr;
 
 Student()
 {
+    arrinp = 1;
     galutinis = 0.0;
     cap=0;
     arr = new int [cap];    
@@ -138,13 +139,13 @@ int main() {
 
             if (m == "n" || m == "N") {
                 cout<< "(norint uzbaigti ivedima ivesti 0)"<<endl;
-                while (arrinp != 0)
+                while (grupe[i].arrinp != 0)
                 {
                     cout<<grupe[i].cap +1 <<"-asis nd paz"<<endl;
-                    arrinp = intHandle();
-                    if (arrinp!=0) 
+                    grupe[i].arrinp = intHandle();
+                    if (grupe[i].arrinp!=0) 
                     {
-                        grupe[0].add(arrinp);
+                        grupe[i].add(grupe[i].arrinp);
                     }
                 };   
                 for (int x=0; x<grupe[i].cap; x++)
@@ -163,7 +164,6 @@ int main() {
                 };
                 for (auto x : grupe[i].nd_paz) {
                     grupe[i].galutinis += x;
-                    cout << x << endl;
                 };
                 grupe[i].galutinis_paz= ((grupe[i].galutinis) / arrs )*0.4+grupe[i].egz_paz*0.6;   
                 grupe[i].mediana = arrMedian(grupe[i].nd_paz);      
