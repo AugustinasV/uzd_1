@@ -8,6 +8,7 @@ using namespace std;
 int n=0;
 string m="" ;
 const int defsize = 4; /// nd_paz vector size
+int linecount = 0;
 
 struct Student
 {
@@ -17,7 +18,7 @@ string pavarde;
 float galutinis_paz;
 int egz_paz;
 float mediana;
-float galutinis;
+float vidurkis;
 vector <int> nd_paz;
 
 Student()
@@ -114,9 +115,8 @@ int main() {
                 };   
                 for (int x=0; x<grupe[i].nd_paz.size(); x++)
                 {
-                    grupe[i].galutinis += grupe[i].nd_paz[x];
+                    grupe[i].vidurkis += grupe[i].nd_paz[x];
                 }
-                grupe[i].galutinis_paz= ((grupe[i].galutinis) / grupe[i].nd_paz.size() )*0.4+grupe[i].egz_paz*0.6;   
                 grupe[i].mediana = grupe[i].vectorMedian(grupe[i].nd_paz);
                 cout << "----------------" << endl;
             }
@@ -126,9 +126,8 @@ int main() {
                     grupe[i].nd_paz.push_back(intHandle());
                 };
                 for (auto x : grupe[i].nd_paz) {
-                    grupe[i].galutinis += x;
+                    grupe[i].vidurkis += x;
                 };
-                grupe[i].galutinis_paz= ((grupe[i].galutinis) / grupe[i].nd_paz.size() )*0.4+grupe[i].egz_paz*0.6;   
                 grupe[i].mediana = grupe[i].vectorMedian(grupe[i].nd_paz);
                 cout << "----------------" << endl;
                 };
@@ -139,27 +138,28 @@ int main() {
                 grupe[i].nd_paz.push_back(rand() % 10 + 1);
             };
             for (auto x : grupe[i].nd_paz) {
-                grupe[i].galutinis += x;
+                grupe[i].vidurkis += x;
             };
-            grupe[i].galutinis_paz= ((grupe[i].galutinis) / grupe[i].nd_paz.size() )*0.4+grupe[i].egz_paz*0.6;   
             grupe[i].mediana = grupe[i].vectorMedian(grupe[i].nd_paz);
             cout << "----------------" << endl; 
         }; 
     }; 
     
-    cout<<"isvesti galutini pazymi (y) ar mediana (n) ? " << endl;
+    cout<<"isvesti galutini pazymi skaiciuojant vidurki (y) ar mediana (n) ? " << endl;
     m = ynHandle();
 
     if (m == "y" || m == "y") {
         cout <<setw(12)<<left<< "Vardas" <<setw(12)<<left<< "Pavarde" <<setw(20)<<left<<"Galutinis (vid.)"<<endl;
         for (int i=0; i<n; i++) {
+            grupe[i].galutinis_paz= ((grupe[i].vidurkis) / grupe[i].nd_paz.size() )*0.4+grupe[i].egz_paz*0.6;
             cout <<setw(12)<<left<< grupe[i].vardas <<setw(12)<<left<< grupe[i].pavarde <<setw(20)<<left<<setprecision(3)<<grupe[i].galutinis_paz<<"\n"<<endl;
         };
     } 
     else {
         cout <<setw(12)<<left<< "Vardas" <<setw(12)<<left<< "Pavarde" <<setw(20)<<left<<"Galutinis (med.)"<<endl;
         for (int i=0; i<n; i++) {
-            cout <<setw(12)<<left<< grupe[i].vardas <<setw(12)<<left<< grupe[i].pavarde <<setw(20)<<left<<setprecision(3)<<grupe[i].mediana<<"\n"<<endl;
+            grupe[i].galutinis_paz= (grupe[i].mediana)*0.4+grupe[i].egz_paz*0.6;
+            cout <<setw(12)<<left<< grupe[i].vardas <<setw(12)<<left<< grupe[i].pavarde <<setw(20)<<left<<setprecision(3)<<grupe[i].galutinis_paz<<"\n"<<endl;
         } 
     };
 };
