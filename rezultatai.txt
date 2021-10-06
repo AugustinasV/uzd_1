@@ -1,0 +1,36 @@
+column count: 6 (vardas, pavarde, nd(3), egz)
+
+1000.txt generation: 1.37315ms
+1000.txt handle: 3.53884ms
+1000.txt sort: 0.822033ms
+1000.txt write: 0.613734ms
+=================================
+1000.txt total: 6.40692ms
+
+10000.txt generation: 15.7485ms
+10000.txt handle: 34.1031ms
+10000.txt sort: 8.51501ms
+10000.txt write: 4.44548ms
+=================================
+10000.txt total: 62.8849ms
+
+100000.txt generation: 123.681ms
+100000.txt handle: 354.463ms
+100000.txt sort: 81.8842ms
+100000.txt write: 45.8117ms
+=================================
+100000.txt total: 605.923ms
+
+1000000.txt generation: 1154.12ms
+1000000.txt handle: 3464.2ms
+1000000.txt sort: 850.004ms
+1000000.txt write: 470.367ms
+=================================
+1000000.txt total: 5938.83ms
+
+10000000.txt generation: 12604.1ms
+10000000.txt handle: 34255.4ms
+10000000.txt sort: 7863.4ms
+10000000.txt write: 5357.23ms
+=================================
+10000000.txt total: 60080.2ms
