@@ -15,9 +15,11 @@ string vardas;
 string pavarde;
 int nd_paz[arrs]; 
 int egz_paz;
+
 float galutinis_paz;
 float mediana;
 float galutinis;
+
 int arrinp;
 int cap;
 int *arr;
@@ -75,7 +77,7 @@ float arrMedian(int arr[]) {
 /// cin = int only;
 int intHandle() { 
     cin >> m;
-    while ((any_of(m.begin(), m.end(), ::isalpha))) {
+    while ((any_of(m.begin(), m.end(), ::isalpha) || m.find_first_of(",./<>?;:[]{}-=_+`~!@#$%^&*()") != std::string::npos)) {
         cout <<"again"<<endl;
         cin>> m;
     };
@@ -85,6 +87,7 @@ int intHandle() {
     }
     return std::stoi(m);
 };
+///while ((any_of(m.begin(), m.end(), ::isalpha) || m.find_first_of(",./<>?;:[]{}-=_+`~!@#$%^&*()") != std::string::npos)) {
 
 /// cin = text string only
 string stringHandle() {   
@@ -185,7 +188,7 @@ int main() {
         };
     };
     
-    cout<<"isvesti galutini pazymi (y) ar mediana (n) ? " << endl;
+    cout<<"isvesti galutini pazymi skaiciuojant vidurki (y) ar mediana (n) ? " << endl;
     m = ynHandle();
 
     if (m == "y" || m == "y") {
@@ -197,7 +200,8 @@ int main() {
     else {
         cout <<setw(12)<<left<< "Vardas" <<setw(12)<<left<< "Pavarde" <<setw(20)<<left<<"Galutinis (med.)"<<endl;
         for (int i=0; i<n; i++) {
-            cout <<setw(12)<<left<< grupe[i].vardas <<setw(12)<<left<< grupe[i].pavarde <<setw(20)<<left<<setprecision(3)<<grupe[i].mediana<<"\n"<<endl;
+            grupe[i].galutinis_paz= grupe[i].mediana*0.4+grupe[i].egz_paz*0.6;
+            cout <<setw(12)<<left<< grupe[i].vardas <<setw(12)<<left<< grupe[i].pavarde <<setw(20)<<left<<setprecision(3)<<grupe[i].galutinis_paz<<"\n"<<endl;
         } 
     };
 };
