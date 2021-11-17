@@ -11,8 +11,8 @@ using namespace std;
 
 int linecount = 0;
 int errorcount = 0;
-const int columncount = 10; /// file column count
-const int size = 1000; /// file entry count
+const int columncount = 8; /// file column count
+const int size = 1000000; /// file entry count
 float listtotaltime=0;
 float vectortotaltime=0;
 
@@ -43,11 +43,12 @@ float galutinis;
 int wordreadlenght; 
 vector <int> nd_paz;
 vector <string> wordread;
-string assignedline;
 
 Student () {
-  
+    nd_paz.reserve(columncount-3);
     wordread.reserve(columncount);
+    
+    galutinis, mediana, galutinis_paz = 0;
 }
 
 float vectorMedian(vector <int> vec) 
@@ -67,19 +68,15 @@ void assign()
     {   
         for (int x =2; x<wordreadlenght-1; x++) 
         {
-            if ((any_of(wordread[x].begin(), wordread[x].end(), ::isalpha) || wordread[x].find_first_of(",./<>?;:[]{}-=_+`~!@#$%^&*()") != std::string::npos)) {
-                throw "401";
-            }
-            else {
                 nd_paz.push_back(std::stoi(wordread[x]));
                 galutinis += std::stoi(wordread[x]);
-            }
+            
         }        
         vardas = wordread[0];
         pavarde = wordread[1];
         egz_paz = std::stoi(wordread[wordreadlenght-1]);
         galutinis_paz= (((galutinis) / nd_paz.size())*0.4 + egz_paz*0.6);   
-        mediana = vectorMedian(nd_paz);
+        ///mediana = vectorMedian(nd_paz);
     }
     else {
         throw 402;
@@ -139,6 +136,7 @@ void fileGenerator()
     }
     file0.close();
 }
+
 int main(){
 
     lineread.reserve(size);
@@ -151,7 +149,7 @@ int main(){
 
     timer b;
     
-    list <Student> grupe(size);
+    list <Student> grupe(linecount);
     int y=0;
     std::list<Student>::iterator it;
     for (it = grupe.begin(); it != grupe.end(); it++)
@@ -170,14 +168,35 @@ int main(){
         }
         y++;
     };
-
     cout << std::to_string(size)+".txt list handle: "  << b.elapsed() << "s"<< endl;
-    listtotaltime +=b.elapsed();
+    listtotaltime +=b.elapsed(); 
+
+    timer d;
+    
+    ofstream file1("list"+std::to_string(size)+"<5.txt");
+    ofstream file2("list"+std::to_string(size)+">=5.txt");
+    int i=0;
+    std::list<Student>::iterator ur;
+    for (ur = grupe.begin(); ur != grupe.end(); ur++) {
+
+        if (ur->galutinis_paz < 5) { 
+            file1 << lineread[i]<< "\n";
+        }
+        else {
+            file2 << lineread[i]<< "\n";
+        }
+        i++;
+    }
+    file1.close();
+    file2.close();
+    cout << std::to_string(size)+".txt list sort + write: "  << d.elapsed() << "s"<< endl;  
+    listtotaltime +=d.elapsed();
+
 
     timer bb;
 
     vector <Student> grupedu;
-    grupedu.reserve(size);
+    grupedu.reserve(linecount);
     for (int x=0; x<linecount; x++)
     {
         readStr(lineread[x], grupedu[x].wordread);
@@ -198,26 +217,7 @@ int main(){
     cout << std::to_string(size)+".txt vector handle: "  << bb.elapsed() << "s"<< endl;
     vectortotaltime +=bb.elapsed();
 
-    timer d;
-    
-    ofstream file1("list"+std::to_string(size)+"<5.txt");
-    ofstream file2("list"+std::to_string(size)+">=5.txt");
-    int i=0;
-    std::list<Student>::iterator ur;
-    for (ur = grupe.begin(); ur != grupe.end(); ur++) {
-
-        if (ur->galutinis_paz < 5) { 
-            file1 << lineread[i]<<"\n";
-        }
-        else {
-            file2 << lineread[i]<<"\n";
-        }
-        i++;
-    }
-    file1.close();
-    file2.close();
-    cout << std::to_string(size)+".txt list sort + write: "  << d.elapsed() << "s"<< endl;  
-    listtotaltime +=d.elapsed();
+   
 
     timer dd;
 
@@ -233,6 +233,8 @@ int main(){
             file4 << lineread[j] << "\n";
         }
     }
+    file3.close();
+    file4.close();
     cout << std::to_string(size)+".txt vector sort + write: "  << dd.elapsed() << "s"<< endl;  
     vectortotaltime +=dd.elapsed();
 
